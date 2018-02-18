@@ -1,5 +1,6 @@
 name: flatn
 version: 0.1.0
+description: Convert 3D models into 2D raster and vector images
 
 authors:
   - Andy Selvig <ajselvig@gmail.com>
