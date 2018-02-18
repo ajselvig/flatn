@@ -1,6 +1,7 @@
 
 module Flatn
 
+  # An immutable pair of x/y coordinates
   struct Vec2
     getter x, y
   
@@ -46,6 +47,7 @@ module Flatn
 
   end
 
+  # An immutable set of x/y/z coordinates
   struct Vec3
     getter x, y, z
   
