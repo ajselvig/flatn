@@ -21,6 +21,14 @@ describe "Vectors" do
       (Vec2.new(3.0, 4.0)/2.0).should eq(Vec2.new(1.5, 2.0))
     end
 
+    it "computes magnitude" do 
+      Vec2.new(2.0, 2.0).mag.should be_close(2.82842712475, 0.00000001)
+    end
+
+    it "normalizes" do 
+      Vec2.new(1.0, 2.0).normalize.mag.should be_close(1.0, 0.00000001)
+    end
+
   end
   
   describe "Vec3" do

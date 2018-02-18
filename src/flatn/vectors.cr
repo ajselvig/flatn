@@ -23,6 +23,27 @@ module Flatn
       Vec2.new(x/scalar, y/scalar)
     end
 
+    def mag
+      Math.sqrt(x*x + y*y)
+    end
+
+    def normalize
+      m = mag
+      Vec2.new(x / m, y / m)
+    end
+
+    def self.unit
+      Vec2.new(1.0, 1.0)
+    end
+
+    def self.x_unit
+      Vec2.new(1.0, 0.0)
+    end
+
+    def self.y_unit
+      Vec2.new(0.0, 1.0)
+    end
+
   end
 
   struct Vec3
@@ -62,6 +83,14 @@ module Flatn
 
     def self.x_unit
       Vec3.new(1.0, 0.0, 0.0)
+    end
+
+    def self.y_unit
+      Vec3.new(0.0, 1.0, 0.0)
+    end
+
+    def self.z_unit
+      Vec3.new(0.0, 0.0, 1.0)
     end
 
   end
