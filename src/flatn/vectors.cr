@@ -47,6 +47,23 @@ module Flatn
       Vec3.new(x/scalar, y/scalar, z/scalar)
     end
 
+    def mag
+      Math.sqrt(x*x + y*y + z*z)
+    end
+
+    def normalize
+      m = mag
+      Vec3.new(x / m, y / m, z / m)
+    end
+
+    def self.unit
+      Vec3.new(1.0, 1.0, 1.0)
+    end
+
+    def self.x_unit
+      Vec3.new(1.0, 0.0, 0.0)
+    end
+
   end
     
 end
