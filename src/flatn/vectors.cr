@@ -54,6 +54,12 @@ module Flatn
     def initialize(@x : Float64, @y : Float64, @z : Float64)
     end
   
+    def initialize(values : Array(Float64))
+      @x = values[0]
+      @y = values[1]
+      @z = values[2]
+    end
+  
     def +(other)
       Vec3.new(x + other.x, y + other.y, z + other.z)
     end

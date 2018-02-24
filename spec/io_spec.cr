@@ -19,7 +19,7 @@ describe "IO" do
     
     it "matches a line" do 
       match = multiline_parser.match_line(/two/)
-      match.line.should eq(2)
+      match.line_number.should eq(2)
       match.data[0].should eq("two")
     end
 
@@ -32,7 +32,7 @@ describe "IO" do
     it "matches the next line" do 
       parser = multiline_parser
       parser.next_line
-      parser.match_next_line(/two/).line.should eq(2)
+      parser.match_next_line(/two/).line_number.should eq(2)
     end
 
   end
