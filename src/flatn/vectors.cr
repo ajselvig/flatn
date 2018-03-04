@@ -102,5 +102,68 @@ module Flatn
     end
 
   end
+
+
+
+  # An immutable set of x/y/z/w homogeneous coordinates
+  struct Vec4
+    getter x, y, z, w
+  
+    def initialize(@x : Float64, @y : Float64, @z : Float64, @w : Float64)
+    end
+  
+    def initialize(values : Array(Float64))
+      @x = values[0]
+      @y = values[1]
+      @z = values[2]
+      @w = values[3]
+    end
+  
+    def +(other)
+      Vec4.new(x + other.x, y + other.y, z + other.z, w + other.w)
+    end
+  
+    def -(other)
+      Vec4.new(x - other.x, y - other.y, z - other.z, w - other.w)
+    end
+
+    def *(scalar)
+      Vec4.new(x*scalar, y*scalar, z*scalar, w*scalar)
+    end
+
+    def /(scalar)
+      Vec4.new(x/scalar, y/scalar, z/scalar, w/scalar)
+    end
+
+    def mag
+      Math.sqrt(x*x + y*y + z*z)
+    end
+
+    def normalize
+      m = mag
+      Vec4.new(x / m, y / m, z / m, w / m)
+    end
+
+    def self.unit
+      Vec4.new(1.0, 1.0, 1.0, 1.0)
+    end
+
+    def self.x_unit
+      Vec4.new(1.0, 0.0, 0.0, 1.0)
+    end
+
+    def self.y_unit
+      Vec4.new(0.0, 1.0, 0.0, 1.0)
+    end
+
+    def self.z_unit
+      Vec4.new(0.0, 0.0, 1.0, 1.0)
+    end
+
+    def to_vec3
+      Vec3.new x/w, y/w, z/w
+    end
+
+  end
     
 end
