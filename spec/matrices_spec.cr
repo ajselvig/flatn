@@ -1,21 +1,21 @@
 require "./spec_helper"
 include Flatn
 
-describe "Matrix3" do
+describe "Mat3" do
   
   it "adds" do 
-    sum = Matrix3.unit + Matrix3.unit
+    sum = Mat3.unit + Mat3.unit
     sum.x0.should eq(2.0)
   end
   
   it "subtracts" do 
-    diff = Matrix3.unit - Matrix3.unit
+    diff = Mat3.unit - Mat3.unit
     diff.x0.should eq(0.0)
   end
   
   it "multiplies" do 
-    a = Matrix3.new 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0
-    b = Matrix3.new 9.0, 8.0, 7.0, 6.0, 5.0, 4.0, 3.0, 2.0, 1.0
+    a = Mat3.new 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0
+    b = Mat3.new 9.0, 8.0, 7.0, 6.0, 5.0, 4.0, 3.0, 2.0, 1.0
     prod = a * b
     prod.x0.should eq(30.0)
     prod.x1.should eq(24.0)
@@ -30,21 +30,30 @@ describe "Matrix3" do
 
 end
 
-describe "Matrix4" do
+describe "Mat4" do
   
   it "adds" do 
-    sum = Matrix4.unit + Matrix4.unit
+    sum = Mat4.unit + Mat4.unit
     sum.w3.should eq(2.0)
   end
   
   it "subtracts" do 
-    diff = Matrix4.unit - Matrix4.unit
+    diff = Mat4.unit - Mat4.unit
     diff.w3.should eq(0.0)
   end
+
+  it "translates" do 
+    trans = Mat4.unit.translate Vec3.new(1.0, 1.0, 1.0)
+    a = Vec4.new 1.0, 2.0, 3.0
+    b = trans * a
+    b.x.should eq(2.0)
+    b.y.should eq(3.0)
+    b.z.should eq(4.0)
+  end
   
-  it "multiplies" do 
-    a = Matrix4.new 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 13.0, 14.0, 15.0, 16.0
-    b = Matrix4.new 16.0, 15.0, 14.0, 13.0, 12.0, 11.0, 10.0, 9.0, 8.0, 7.0, 6.0, 5.0, 4.0, 3.0, 2.0, 1.0
+  it "multiplies by another matrix" do 
+    a = Mat4.new 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 13.0, 14.0, 15.0, 16.0
+    b = Mat4.new 16.0, 15.0, 14.0, 13.0, 12.0, 11.0, 10.0, 9.0, 8.0, 7.0, 6.0, 5.0, 4.0, 3.0, 2.0, 1.0
     prod = a * b
     prod.x0.should eq(80.0)
     prod.x1.should eq(70.0)
@@ -62,6 +71,16 @@ describe "Matrix4" do
     prod.w1.should eq(502.0)
     prod.w2.should eq(444.0)
     prod.w3.should eq(386.0)
+  end
+
+  it "multiplies by a vector" do 
+    a = Mat4.new 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 13.0, 14.0, 15.0, 16.0
+    b = Vec4.new 1.0, 2.0, 3.0, 4.0
+    prod = a * b
+    prod.x.should eq(30.0)
+    prod.y.should eq(70.0)
+    prod.z.should eq(110.0)
+    prod.w.should eq(150.0)
   end
 
 end

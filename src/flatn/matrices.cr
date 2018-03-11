@@ -4,7 +4,7 @@ module Flatn
   # [x0, x1, x2,
   #  y0, y1, y2,
   #  z0, z1, z2]
-  struct Matrix3
+  struct Mat3
     getter x0, x1, x2, y0, y1, y2, z0, z1, z2
 
     def initialize(@x0 : Float64, @x1 : Float64, @x2 : Float64, 
@@ -25,7 +25,7 @@ module Flatn
     end
 
     def +(scalar)
-      Matrix3.new(
+      Mat3.new(
         x0 + scalar, x1 + scalar, x2 + scalar, 
         y0 + scalar, y1 + scalar, y2 + scalar, 
         z0 + scalar, z1 + scalar, z2 + scalar
@@ -33,7 +33,7 @@ module Flatn
     end
 
     def -(scalar)
-      Matrix3.new(
+      Mat3.new(
         x0 - scalar, x1 - scalar, x2 - scalar, 
         y0 - scalar, y1 - scalar, y2 - scalar, 
         z0 - scalar, z1 - scalar, z2 - scalar
@@ -41,7 +41,7 @@ module Flatn
     end
 
     def +(other)
-      Matrix3.new(
+      Mat3.new(
         x0 + other.x0, x1 + other.x1, x2 + other.x2, 
         y0 + other.y0, y1 + other.y1, y2 + other.y2, 
         z0 + other.z0, z1 + other.z1, z2 + other.z2
@@ -49,15 +49,15 @@ module Flatn
     end
 
     def -(other)
-      Matrix3.new(
+      Mat3.new(
         x0 - other.x0, x1 - other.x1, x2 - other.x2, 
         y0 - other.y0, y1 - other.y1, y2 - other.y2, 
         z0 - other.z0, z1 - other.z1, z2 - other.z2
       )
     end
 
-    def *(other)
-      Matrix3.new(
+    def *(other : Mat3)
+      Mat3.new(
         x0*other.x0 + x1*other.y0 + x2*other.z0,
         x0*other.x1 + x1*other.y1 + x2*other.z1, 
         x0*other.x2 + x1*other.y2 + x2*other.z2, 
@@ -71,7 +71,7 @@ module Flatn
     end
 
     def self.unit
-      Matrix3.new(
+      Mat3.new(
         1.0, 0.0, 0.0,
         0.0, 1.0, 0.0,
         0.0, 0.0, 1.0
@@ -85,7 +85,7 @@ module Flatn
   #  y0, y1, y2, y3
   #  z0, z1, z2, z3,
   #  w0, w1, w2, w3]
-  struct Matrix4
+  struct Mat4
     getter x0, x1, x2, x3, y0, y1, y2, y3, z0, z1, z2, z3, w0, w1, w2, w3
 
     def initialize(@x0 : Float64, @x1 : Float64, @x2 : Float64, @x3 : Float64, 
@@ -114,7 +114,7 @@ module Flatn
     end
 
     def +(scalar)
-      Matrix4.new(
+      Mat4.new(
         x0 + scalar, x1 + scalar, x2 + scalar, x3 + scalar, 
         y0 + scalar, y1 + scalar, y2 + scalar, y3 + scalar, 
         z0 + scalar, z1 + scalar, z2 + scalar, z3 + scalar, 
@@ -123,7 +123,7 @@ module Flatn
     end
 
     def -(scalar)
-      Matrix4.new(
+      Mat4.new(
         x0 - scalar, x1 - scalar, x2 - scalar, x3 - scalar, 
         y0 - scalar, y1 - scalar, y2 - scalar, y3 - scalar, 
         z0 - scalar, z1 - scalar, z2 - scalar, z3 - scalar, 
@@ -132,7 +132,7 @@ module Flatn
     end
 
     def +(other)
-      Matrix4.new(
+      Mat4.new(
         x0 + other.x0, x1 + other.x1, x2 + other.x2, x3 + other.x3, 
         y0 + other.y0, y1 + other.y1, y2 + other.y2, y3 + other.y3, 
         z0 + other.z0, z1 + other.z1, z2 + other.z2, z3 + other.z3, 
@@ -141,7 +141,7 @@ module Flatn
     end
 
     def -(other)
-      Matrix4.new(
+      Mat4.new(
         x0 - other.x0, x1 - other.x1, x2 - other.x2, x3 - other.x3, 
         y0 - other.y0, y1 - other.y1, y2 - other.y2, y3 - other.y3, 
         z0 - other.z0, z1 - other.z1, z2 - other.z2, z3 - other.z3, 
@@ -149,8 +149,8 @@ module Flatn
       )
     end
 
-    def *(other)
-      Matrix4.new(
+    def *(other : Mat4)
+      Mat4.new(
         x0*other.x0 + x1*other.y0 + x2*other.z0 + x3*other.w0,
         x0*other.x1 + x1*other.y1 + x2*other.z1 + x3*other.w1, 
         x0*other.x2 + x1*other.y2 + x2*other.z2 + x3*other.w2, 
@@ -170,8 +170,38 @@ module Flatn
       )
     end
 
+    def *(other : Vec4)
+      Vec4.new(
+        x0*other.x + x1*other.y + x2*other.z + x3*other.w,
+        y0*other.x + y1*other.y + y2*other.z + y3*other.w,
+        z0*other.x + z1*other.y + z2*other.z + z3*other.w,
+        w0*other.x + w1*other.y + w2*other.z + w3*other.w
+      )
+    end
+
+    def translate(vec : Vec3)
+      # Mat4.new(
+      #   x0, x1, x2, x3 + vec.x,
+      #   y0, y1, y2, y3 + vec.y,
+      #   z0, z1, z2, z3 + vec.z,
+      #   w0, w1, w2, w3
+      # )
+      # self * Mat4.new(
+      #   1.0, 0.0, 0.0, 0.0,
+      #   0.0, 1.0, 0.0, 0.0,
+      #   0.0, 0.0, 1.0, 0.0,
+      #   vec.x, vec.y, vec.z, 0.0
+      # )
+      self * Mat4.new(
+        1.0, 0.0, 0.0, vec.x,
+        0.0, 1.0, 0.0, vec.y,
+        0.0, 0.0, 1.0, vec.z,
+        0.0, 0.0, 0.0, 0.0
+      )
+    end
+
     def self.unit
-      Matrix4.new(
+      Mat4.new(
         1.0, 0.0, 0.0, 0.0,
         0.0, 1.0, 0.0, 0.0,
         0.0, 0.0, 1.0, 0.0,

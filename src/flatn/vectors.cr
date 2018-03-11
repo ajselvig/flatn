@@ -85,6 +85,11 @@ module Flatn
       Vec3.new(x / m, y / m, z / m)
     end
 
+    # throw away the z component
+    def to_vec2
+      Vec2.new x, y
+    end
+
     def self.unit
       Vec3.new(1.0, 1.0, 1.0)
     end
@@ -109,7 +114,7 @@ module Flatn
   struct Vec4
     getter x, y, z, w
   
-    def initialize(@x : Float64, @y : Float64, @z : Float64, @w : Float64)
+    def initialize(@x : Float64, @y : Float64, @z : Float64, @w : Float64 = 1.0)
     end
   
     def initialize(values : Array(Float64))
