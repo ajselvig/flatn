@@ -21,6 +21,7 @@ module Flatn
 
     def translate(vec : Vec3)
       @projection = @projection.translate vec
+      self
     end
 
     def eye_to_clip(eye : Vec4)

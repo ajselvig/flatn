@@ -50,6 +50,29 @@ describe "Mat4" do
     b.y.should eq(3.0)
     b.z.should eq(4.0)
   end
+
+  it "rotates" do 
+    x_rot = Mat4.unit.rotate_x 90.0
+    a = Vec4.new 0.0, 1.0, 0.0
+    b = x_rot * a
+    b.x.should eq(0.0)
+    b.y.should be_close(0.0, 0.000001)
+    b.z.should eq(1.0)
+
+    y_rot = Mat4.unit.rotate_y 90.0
+    a = Vec4.new 1.0, 0.0, 0.0
+    b = y_rot * a
+    b.x.should be_close(0.0, 0.000001)
+    b.y.should eq(0.0)
+    b.z.should eq(-1.0)
+
+    z_rot = Mat4.unit.rotate_z 90.0
+    a = Vec4.new 1.0, 0.0, 0.0
+    b = z_rot * a
+    b.x.should be_close(0.0, 0.000001)
+    b.y.should eq(1.0)
+    b.z.should eq(0.0)
+  end
   
   it "multiplies by another matrix" do 
     a = Mat4.new 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 13.0, 14.0, 15.0, 16.0

@@ -180,22 +180,46 @@ module Flatn
     end
 
     def translate(vec : Vec3)
-      # Mat4.new(
-      #   x0, x1, x2, x3 + vec.x,
-      #   y0, y1, y2, y3 + vec.y,
-      #   z0, z1, z2, z3 + vec.z,
-      #   w0, w1, w2, w3
-      # )
-      # self * Mat4.new(
-      #   1.0, 0.0, 0.0, 0.0,
-      #   0.0, 1.0, 0.0, 0.0,
-      #   0.0, 0.0, 1.0, 0.0,
-      #   vec.x, vec.y, vec.z, 0.0
-      # )
       self * Mat4.new(
         1.0, 0.0, 0.0, vec.x,
         0.0, 1.0, 0.0, vec.y,
         0.0, 0.0, 1.0, vec.z,
+        0.0, 0.0, 0.0, 0.0
+      )
+    end
+
+    def rotate_x(deg : Float64)
+      rad = deg2rad deg
+      cos = Math.cos rad
+      sin = Math.sin rad
+      self * Mat4.new(
+        1.0, 0.0, 0.0, 0.0,
+        0.0, cos, -sin, 0.0,
+        0.0, sin, cos, 0.0,
+        0.0, 0.0, 0.0, 0.0
+      )
+    end
+
+    def rotate_y(deg : Float64)
+      rad = deg2rad deg
+      cos = Math.cos rad
+      sin = Math.sin rad
+      self * Mat4.new(
+        cos, 0.0, sin, 0.0,
+        0.0, 1.0, 0.0, 0.0,
+        -sin, 0.0, cos, 0.0,
+        0.0, 0.0, 0.0, 0.0
+      )
+    end
+
+    def rotate_z(deg : Float64)
+      rad = deg2rad deg
+      cos = Math.cos rad
+      sin = Math.sin rad
+      self * Mat4.new(
+        cos, -sin, 0.0, 0.0,
+        sin, cos, 0.0, 0.0,
+        0.0, 0.0, 1.0, 0.0,
         0.0, 0.0, 0.0, 0.0
       )
     end
