@@ -7,6 +7,17 @@ module Flatn
   
     def initialize(@x : Float64, @y : Float64)
     end
+
+    def to_s
+      "#{@x},#{@y}"
+    end
+
+    def self.parse(s)
+      comps = s.split(",")
+      x = comps.first.to_f
+      y = comps.second.to_f
+      Vec2.new x, y
+    end
   
     def +(other)
       Vec2.new(x + other.x, y + other.y)
