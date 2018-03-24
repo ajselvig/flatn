@@ -24,6 +24,16 @@ module Flatn
       self
     end
 
+    def rotate_x(deg : Float64)
+      @projection = @projection.rotate_x deg
+      self
+    end
+
+    def rotate_y(deg : Float64)
+      @projection = @projection.rotate_y deg
+      self
+    end
+
     def eye_to_clip(eye : Vec4)
       @projection * eye
     end

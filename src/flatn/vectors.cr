@@ -12,6 +12,10 @@ module Flatn
       "[#{@x},#{@y}]"
     end
 
+    def svg_pair
+      "#{@x},#{@y}"
+    end
+
     def self.parse(s)
       comps = s.split(",")
       x = comps.first.to_f

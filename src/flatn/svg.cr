@@ -109,6 +109,12 @@ module Flatn
 
   abstract class SVGDrawableNode < SVGNode
 
+    def initialize(tag)
+      super
+
+      self.fill = "none"
+    end
+
     string_attr fill
     string_attr stroke
     float_attr stroke_width
@@ -143,7 +149,7 @@ module Flatn
     end
 
     def points=(p)
-      @attrs["points"] = p.map(&.to_s).join(" ")
+      @attrs["points"] = p.map(&.svg_pair).join(" ")
     end
 
   end
