@@ -16,6 +16,7 @@ describe Scene do
 
     scene.renderers << SVGRenderer.new(width, height)
 
+    scene.filters << FlatFilter.new(FillStyle.new("#00ffff"))
     scene.filters << WireframeFilter.new(StrokeStyle.new("#000000", width=0.5))
     
     scene.render "spec/output/sphere_wireframe"
