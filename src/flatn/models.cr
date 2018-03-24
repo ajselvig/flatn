@@ -9,11 +9,10 @@ module Flatn
 
     getter normal, vertices
 
-    def initialize(verts : Array(Vec3), norm : Vec3)
-      unless verts.size == 3
+    def initialize(@vertices : Array(Vec3), norm : Vec3)
+      unless @vertices.size == 3
         raise "vertices must have exactly 3 elements"
       end
-      @vertices = verts.map &.normalize
       @normal = norm.normalize
     end
 
@@ -30,6 +29,29 @@ module Flatn
 
   end
 
+  # A flat Facet is a single triangle with three 2D vertices
+  class FlatFacet
+
+    @vertices : Array(Vec2)
+
+    getter vertices
+
+    def initialize(@vertices : Array(Vec2))
+      unless @vertices.size == 3
+        raise "vertices must have exactly 3 elements"
+      end
+    end
+
+  end
+
+  class FlatModel
+
+    getter facets
+
+    def initialize(@facets : Array(FlatFacet))
+    end
+
+  end
 
 end
 

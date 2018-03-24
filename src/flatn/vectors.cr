@@ -9,7 +9,7 @@ module Flatn
     end
 
     def to_s
-      "#{@x},#{@y}"
+      "[#{@x},#{@y}]"
     end
 
     def self.parse(s)
@@ -19,16 +19,24 @@ module Flatn
       Vec2.new x, y
     end
   
-    def +(other)
+    def +(other : Vec2)
       Vec2.new(x + other.x, y + other.y)
+    end
+  
+    def +(other : Float64)
+      Vec2.new(x + other, y + other)
     end
   
     def -(other)
       Vec2.new(x - other.x, y - other.y)
     end
 
-    def *(scalar)
+    def *(scalar : Float64)
       Vec2.new(x*scalar, y*scalar)
+    end
+
+    def *(other : Vec2)
+      Vec2.new(x*other.x, y*other.y)
     end
 
     def /(scalar)
@@ -69,6 +77,10 @@ module Flatn
       @x = values[0]
       @y = values[1]
       @z = values[2]
+    end
+
+    def to_s
+      "[#{@x},#{@y},#{@z}]"
     end
   
     def +(other)
@@ -134,10 +146,15 @@ module Flatn
       @z = values[2]
       @w = values[3]
     end
+
+    def to_s
+      "[#{@x},#{@y},#{@z},#{@w}]"
+    end
   
     def +(other)
       Vec4.new(x + other.x, y + other.y, z + other.z, w + other.w)
     end
+
   
     def -(other)
       Vec4.new(x - other.x, y - other.y, z - other.z, w - other.w)

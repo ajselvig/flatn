@@ -8,9 +8,9 @@ describe "STL" do
     it "parses the sphere" do 
       model = STLLoader.new.from_file "spec/input/sphere.stl"
       model.name.should eq("sphere")
-      model.facets.size.should eq(228)
+      model.facets.size.should eq(960)
       facet = model.facets.first
-      facet.normal.z.should be_close(-0.988171, 0.00001)
+      facet.normal.z.should be_close(-0.062361, 0.00001)
     end
 
     it "parses the bottle" do 
