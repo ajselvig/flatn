@@ -16,8 +16,12 @@ module Flatn
       @normal = norm.normalize
     end
 
-    def make_flat(verts : Array(Vec2))
-      FlatFacet.new self, verts
+    def make_flat(verts : Array(Vec2), depth : Float64)
+      FlatFacet.new self, verts, depth
+    end
+
+    def center
+      Vec3.new @vertices.map(&.x).sum/3.0, @vertices.map(&.y).sum/3.0, @vertices.map(&.z).sum/3.0
     end
 
   end
@@ -38,9 +42,9 @@ module Flatn
 
     @vertices : Array(Vec2)
 
-    getter vertices, parent
+    getter vertices, parent, depth
 
-    def initialize(@parent : Facet, @vertices : Array(Vec2))
+    def initialize(@parent : Facet, @vertices : Array(Vec2), @depth : Float64)
       unless @vertices.size == 3
         raise "vertices must have exactly 3 elements"
       end

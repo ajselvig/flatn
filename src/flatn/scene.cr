@@ -27,9 +27,9 @@ module Flatn
       end
       @models.each do |model|
         flat_model = @flatner.flatn model
-        @filters.each do |filter|
-          @renderers.each do |renderer|
-            flat_model.facets.each do |facet|
+        flat_model.facets.each do |facet|
+          @filters.each do |filter|
+            @renderers.each do |renderer|
               filter.render_facet facet, renderer
             end
           end
