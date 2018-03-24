@@ -117,6 +117,11 @@ module Flatn
       Vec2.new x, y
     end
 
+    # add w=1.0
+    def to_vec4
+      Vec4.new x, y, z, 1.0
+    end
+
     def self.unit
       Vec3.new(1.0, 1.0, 1.0)
     end

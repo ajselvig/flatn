@@ -82,7 +82,7 @@ module Flatn
 
   # 4D matrix 
   # [x0, x1, x2, x3,
-  #  y0, y1, y2, y3
+  #  y0, y1, y2, y3,
   #  z0, z1, z2, z3,
   #  w0, w1, w2, w3]
   struct Mat4
@@ -223,6 +223,17 @@ module Flatn
         0.0, 0.0, 0.0, 1.0
       )
     end
+
+    # returns the rotation component of the matrix
+    def rotation
+      Mat4.new(
+        x0, x1, x2, 0.0,
+        y0, y1, y2, 0.0,
+        z0, z1, z2, 0.0,
+        0.0, 0.0, 0.0, 1.0
+      )
+    end
+
 
     def self.unit
       Mat4.new(

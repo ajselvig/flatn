@@ -14,14 +14,16 @@ module Flatn
       flat_facets = [] of FlatFacet
 
       model.facets.each do |facet|
-        normal4 = Vec4.new facet.normal.x, facet.normal.y, facet.normal.z, 1.0
-        flat_normal = camera.eye_to_ndc(normal4)
-        if flat_normal.z < 2.5
+        # rotate the normal to the same orientation as the camera and 
+        # reject anything that's facing away from it
+        normal4 = facet.normal.to_vec4
+        normal_t = @camera.transform.rotation * normal4
+        if normal_t.z >= 0
           next
         end
+
         flat_verts = facet.vertices.map do |vert|
-          vert4 = Vec4.new vert.x, vert.y, vert.z, 1.0
-          vert3 = camera.eye_to_ndc vert4
+          vert3 = camera.eye_to_ndc vert.to_vec4
           Vec2.new vert3.x, vert3.y
         end
         flat_facets << FlatFacet.new(flat_verts)
