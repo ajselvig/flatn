@@ -12,7 +12,7 @@ module Flatn
       @matrix = Mat4.unit
     end
 
-    def init_perspective(width : Float64, height : Float64, near : Float64, far : Float64)
+    def perspective(width : Float64, height : Float64, near : Float64, far : Float64)
       r = width / 2.0
       t = height / 2.0
       @projection = Mat4.new(
@@ -47,6 +47,12 @@ module Flatn
 
     def rotate_y(deg : Float64)
       @transform = @transform.rotate_y deg
+      self.update_matrix
+      self
+    end
+
+    def rotate_z(deg : Float64)
+      @transform = @transform.rotate_z deg
       self.update_matrix
       self
     end

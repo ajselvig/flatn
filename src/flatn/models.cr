@@ -16,6 +16,10 @@ module Flatn
       @normal = norm.normalize
     end
 
+    def make_flat(verts : Array(Vec2))
+      FlatFacet.new self, verts
+    end
+
   end
 
   # A Model represents a 3D object as a set of Facets
@@ -34,9 +38,9 @@ module Flatn
 
     @vertices : Array(Vec2)
 
-    getter vertices
+    getter vertices, parent
 
-    def initialize(@vertices : Array(Vec2))
+    def initialize(@parent : Facet, @vertices : Array(Vec2))
       unless @vertices.size == 3
         raise "vertices must have exactly 3 elements"
       end

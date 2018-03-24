@@ -38,6 +38,9 @@ module Flatn
     end
 
     def save(path)
+      unless path =~ /\.svg$/
+        path = path + ".svg"
+      end
       @doc.save path
     end
 

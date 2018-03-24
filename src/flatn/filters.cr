@@ -3,10 +3,7 @@ module Flatn
   # an interface for classes that convert a FlatModel into Renderer instructions
   abstract class Filter
 
-    def initialize(@model : FlatModel)
-    end
-
-    abstract def render(renderer : Renderer)
+    abstract def render_facet(facet : FlatFacet, renderer : Renderer)
 
   end
 
@@ -14,14 +11,11 @@ module Flatn
   # renders every facet with the given stroke style
   class WireframeFilter < Filter
 
-    def initialize(model, @style : StrokeStyle)
-      super model
+    def initialize(@style : StrokeStyle)
     end
 
-    def render(renderer : Renderer)
-      @model.facets.each do |facet|
-        renderer.facet facet, stroke=@style
-      end
+    def render_facet(facet : FlatFacet, renderer : Renderer)
+      renderer.facet facet, stroke=@style
     end
 
   end

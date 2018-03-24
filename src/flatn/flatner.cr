@@ -26,7 +26,7 @@ module Flatn
           vert3 = camera.eye_to_ndc vert.to_vec4
           Vec2.new vert3.x, vert3.y
         end
-        flat_facets << FlatFacet.new(flat_verts)
+        flat_facets << facet.make_flat(flat_verts)
       end
 
       FlatModel.new flat_facets

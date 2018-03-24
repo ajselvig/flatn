@@ -5,7 +5,7 @@ describe "Camera" do
 
   it "projects perspective" do 
     camera = Camera.new
-    camera.init_perspective 2.0, 2.0, 1.0, 2.0
+    camera.perspective 2.0, 2.0, 1.0, 2.0
 
     a = Vec4.new 0.0, 0.0, -1.5, 1.0
     a_ndc = camera.eye_to_ndc a
