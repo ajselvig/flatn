@@ -8,3 +8,10 @@ authors:
 crystal: 0.24.1
 
 license: MIT
+
+dependencies:
+  # stumpy_png:
+  #   github: stumpycr/stumpy_png
+  #   version: "~> 4.3"
+  stumpy_utils:
+    github: stumpycr/stumpy_utils

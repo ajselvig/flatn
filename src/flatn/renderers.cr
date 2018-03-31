@@ -1,3 +1,5 @@
+require "stumpy_png"
+require "stumpy_utils"
 
 module Flatn
 
@@ -42,6 +44,35 @@ module Flatn
         path = path + ".svg"
       end
       @doc.save path
+    end
+
+  end
+
+
+  # Renderer implementation that writes to a raster image file
+  class PNGRenderer < Renderer
+
+    def initialize(width, height)
+      super
+
+      @canvas = StumpyPNG::Canvas.new(width, height)
+    end
+
+    def facet(facet : FlatFacet, stroke : StrokeStyle? = nil, fill : FillStyle? = nil)
+      if stroke
+        facet.vertices.each_index do |i|
+          p1 = ndc_to_screen facet.vertices[i]
+          p2 = ndc_to_screen facet.vertices[(i+1)%3]
+          @canvas.line p1.x, p1.y, p2.x, p2.y, StumpyPNG::RGBA.from_hex(stroke.color)
+        end
+      end
+    end
+
+    def save(path)
+      unless path =~ /\.png$/
+        path = path + ".png"
+      end
+      StumpyPNG.write @canvas, path
     end
 
   end

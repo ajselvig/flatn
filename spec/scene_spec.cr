@@ -15,9 +15,10 @@ describe Scene do
     scene.models << STLLoader.new.from_file("spec/input/sphere.stl")
 
     scene.renderers << SVGRenderer.new(width, height)
+    scene.renderers << PNGRenderer.new(width, height)
 
     scene.filters << FlatFilter.new(FillStyle.new("#00ffff"))
-    scene.filters << WireframeFilter.new(StrokeStyle.new("#000000", width=0.5))
+    scene.filters << WireframeFilter.new(StrokeStyle.new("#000088", width=0.5))
     
     scene.render "spec/output/sphere_flat_wireframe"
   end
